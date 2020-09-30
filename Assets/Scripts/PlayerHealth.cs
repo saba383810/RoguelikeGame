@@ -6,33 +6,30 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int playerHp=100;
-    [SerializeField] private Text playerHpText;
+    private Text playerHpText;
     private Slider slider;
     
     // Start is called before the first frame update
     void Start()
     {
         slider = GameObject.Find("PlayerHPSlider").GetComponent<Slider>();
+        playerHpText = GameObject.Find("HPText2").GetComponent<Text>();
 
         slider.maxValue = playerHp;
         slider.value = playerHp;
         playerHpText.text = slider.value.ToString("f0") + "/" + slider.maxValue.ToString("f0");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Damage()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            damage();
-        }
-    }
-
-    private void damage()
-    {
-        this.playerHp -= 1;
+        this.playerHp -= 4;
         slider.value = playerHp;
         playerHpText.text = slider.value.ToString("f0") + "/" + slider.maxValue.ToString("f0");
         return;
+    }
+
+    private void Attack()
+    {
+        
     }
 }

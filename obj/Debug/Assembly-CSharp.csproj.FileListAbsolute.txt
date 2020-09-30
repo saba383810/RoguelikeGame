@@ -235,3 +235,5 @@ C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp.c
 C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp.dll
 C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp.pdb
+C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\Temp\bin\Debug\Boo.Lang.dll
+C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\Temp\bin\Debug\UnityEditor.UI.dll
