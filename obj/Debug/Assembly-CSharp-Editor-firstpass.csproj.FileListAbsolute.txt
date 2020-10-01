@@ -262,3 +262,5 @@ C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp-E
 C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.CopyComplete
 C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp-Editor-firstpass.dll
 C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
+C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\Temp\bin\Debug\UnityEditor.Android.Extensions.dll
+C:\Users\yaiba\Documents\program\Unity\RoguelikeGame\Temp\bin\Debug\UnityEditor.WebGL.Extensions.dll

@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
         if (enemyHp <= 0)
         {
             Invoke(nameof(delayDestroy), 0.5f);
-            playerMove.resetTargetObj();
+            playerMove.ResetTargetObj();
         }
     }
 

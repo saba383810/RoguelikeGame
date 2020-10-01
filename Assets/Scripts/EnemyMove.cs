@@ -7,7 +7,7 @@ public class EnemyMove : MonoBehaviour
 {
     private Animator anim;
     [SerializeField] private bool canAttack = false; 
-    [SerializeField] private float currentTime=0;
+    [SerializeField] private float currentTime;
     private static readonly int IsBattle = Animator.StringToHash("isBattle");
     private static readonly int IsAttack = Animator.StringToHash("isAttack");
     private PlayerHealth playerHealth;
@@ -17,13 +17,14 @@ public class EnemyMove : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         playerHealth =  GameObject.Find("Player").GetComponent<PlayerHealth>();
+        currentTime = 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         currentTime += Time.deltaTime;
-        if (currentTime >= 3.0f)
+        if (currentTime >= 2.0f)
         {
             EnemyAttack();
             currentTime = 0;
@@ -50,7 +51,7 @@ public class EnemyMove : MonoBehaviour
     private void EnemyAttack()
     {
         anim.SetBool(IsAttack,true);
-        playerHealth.Damage();
+        playerHealth.HpDamage(4);
 
     }
 

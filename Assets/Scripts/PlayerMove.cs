@@ -11,26 +11,28 @@ public class PlayerMove : MonoBehaviour
 
     private float step = 5f;
     private Vector3 moveTarget;
+    private Vector3 prevpos;
     public Vector3 enemyPos;
+    private PlayerHealth playerHealth;
     private EnemyHealth enemyHealth;
     private GameObject enemyObj;
-    private Vector3 prevpos;
     private Animator anim;
     private bool canAttack = true;
-    [SerializeField] private float food = 100;
+  
+    
     
     private static readonly int IsRunning = Animator.StringToHash("isRunning");
-    private Slider slider;
+   
     private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
     void Start()
     {
         moveTarget = transform.position;
         anim = GetComponent<Animator>();
-        slider = GameObject.Find("FoodSlider").GetComponent<Slider>();
+        
         enemyObj = GameObject.Find("Dummy");
-        slider.maxValue = food;
-        slider.value = food;
+        playerHealth = gameObject.GetComponent<PlayerHealth>();
+
     }
 
     void Update()
@@ -58,7 +60,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         Move();
-        slider.value = food;
+        
     }
     //----------移動向きをセット------------------
     void SetTargetPosition()
@@ -105,12 +107,12 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) && enemyPos!=moveTarget)
             {
                 transform.position = Vector3.MoveTowards(position, moveTarget, step * 2 * Time.deltaTime);
-                food -= 0.03f;
+                playerHealth.FoodDamage(0.03f);
             }
             else if(enemyPos!=moveTarget)
             {
                 transform.position = Vector3.MoveTowards(position, moveTarget, step * Time.deltaTime);
-                food -= 0.01f;
+                playerHealth.FoodDamage(0.01f);
             }
             else
             {
@@ -140,7 +142,7 @@ public class PlayerMove : MonoBehaviour
         canAttack = true;
     }
 
-    public void resetTargetObj()
+    public void ResetTargetObj()
     {
         enemyObj = GameObject.Find("Dummy");
         enemyPos = enemyObj.transform.position;
