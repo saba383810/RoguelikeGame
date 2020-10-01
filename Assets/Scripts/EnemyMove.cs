@@ -11,12 +11,14 @@ public class EnemyMove : MonoBehaviour
     private static readonly int IsBattle = Animator.StringToHash("isBattle");
     private static readonly int IsAttack = Animator.StringToHash("isAttack");
     private PlayerHealth playerHealth;
+    private TextManager textManager;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        playerHealth =  GameObject.Find("Player").GetComponent<PlayerHealth>();
+        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        textManager = GameObject.Find("TextManager").GetComponent<TextManager>();
         currentTime = 1.0f;
     }
 
@@ -26,6 +28,7 @@ public class EnemyMove : MonoBehaviour
         currentTime += Time.deltaTime;
         if (currentTime >= 2.0f)
         {
+            textManager.OutputLog(gameObject.name+"の攻撃！");
             EnemyAttack();
             currentTime = 0;
             Invoke(nameof(SetAttackFalse),0.5f);
@@ -52,7 +55,6 @@ public class EnemyMove : MonoBehaviour
     {
         anim.SetBool(IsAttack,true);
         playerHealth.HpDamage(4);
-
     }
 
     private void SetAttackFalse()

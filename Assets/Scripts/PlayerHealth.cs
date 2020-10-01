@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     private Text playerHpText;
     private Slider hpSlider;
     private Slider foodSlider;
+    private TextManager textManager;
     [SerializeField] private float food = 100;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
         hpSlider = GameObject.Find("PlayerHPSlider").GetComponent<Slider>();
         playerHpText = GameObject.Find("HPText2").GetComponent<Text>();
         foodSlider = GameObject.Find("FoodSlider").GetComponent<Slider>();
+        textManager = GameObject.Find("TextManager").GetComponent<TextManager>();
         hpSlider.maxValue = playerHp;
         hpSlider.value = playerHp;
         foodSlider.maxValue = food;
@@ -27,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
     public void HpDamage(int damage)
     {
         this.playerHp -= damage;
+        textManager.OutputLog(gameObject.name+"は"+damage+"のダメージをうけた。");
         hpSlider.value = playerHp;
         playerHpText.text = hpSlider.value.ToString("f0") + "/" + hpSlider.maxValue.ToString("f0");
         return;

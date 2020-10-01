@@ -9,53 +9,57 @@ public class PlayerMove : MonoBehaviour
     private static Vector3 MOVEX = new Vector3(2, 0, 0);
     private static Vector3 MOVEZ = new Vector3(0, 0, 2);
 
-    private float step = 5f;
+    [SerializeField] private float timer = 2;
+    [SerializeField] private int nextAttackTime = 1;
+    [SerializeField] float step = 5f;
+    
+    private Vector3 enemyPos;
     private Vector3 moveTarget;
     private Vector3 prevpos;
-    public Vector3 enemyPos;
+   
     private PlayerHealth playerHealth;
     private EnemyHealth enemyHealth;
+    private TextManager textManager;
     private GameObject enemyObj;
     private Animator anim;
     private bool canAttack = true;
-  
-    
-    
-    private static readonly int IsRunning = Animator.StringToHash("isRunning");
    
+    private static readonly int IsRunning = Animator.StringToHash("isRunning");
     private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
     void Start()
     {
         moveTarget = transform.position;
         anim = GetComponent<Animator>();
-        
         enemyObj = GameObject.Find("Dummy");
+        textManager = GameObject.Find("TextManager").GetComponent<TextManager>();
         playerHealth = gameObject.GetComponent<PlayerHealth>();
 
     }
 
     void Update()
     {
+        timer += Time.deltaTime;
         if (this.transform.position == moveTarget)
         {
             SetTargetPosition();
         }
         //---------------攻撃----------------
-        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Mouse0)))
+        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Mouse0))&&timer>= nextAttackTime)
         {
-            if (canAttack == true)
+            if (canAttack)
             {
                 canAttack = false;
                 enemyHealth = enemyObj.GetComponent<EnemyHealth>();
                 anim.SetBool(IsAttack, true);
+                textManager.OutputLog(gameObject.name+"の攻撃！");
                 enemyHealth.Damage();
                 Invoke(nameof(SetIsAttackFalse), 0.5f);
+                timer = 0;
             }
             else
             {
                 anim.SetBool(IsAttack, true);
-                Invoke(nameof(SetIsAttackFalse), 0.5f);
             }
         }
 

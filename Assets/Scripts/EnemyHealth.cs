@@ -10,11 +10,14 @@ public class EnemyHealth : MonoBehaviour
     //private Slider slider;
     private Slider slider;
     PlayerMove playerMove;
+    private TextManager textManager;
+    [SerializeField] private int damage=4;
     private void Start()
     {
         //slider = GameObject.Find("EnemySlider").GetComponent<Slider>();
         slider = GetComponentInChildren<Slider>();
-        playerMove = GameObject.Find("Player").GetComponent<PlayerMove>();
+        playerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMove>();
+        textManager = GameObject.Find("TextManager").GetComponent<TextManager>();
         slider.maxValue = enemyHp;
         slider.value = enemyHp;
     }
@@ -23,26 +26,27 @@ public class EnemyHealth : MonoBehaviour
     {
         if (enemyHp <= 0)
         {
-            Invoke(nameof(delayDestroy), 0.5f);
+            Invoke(nameof(DelayDestroy), 0.5f);
             playerMove.ResetTargetObj();
         }
     }
 
     public void Damage()
     {
-        enemyHp -= 4;
-        Invoke(nameof(SetSlider),0.5f);
-
+        if (gameObject.name == "Dummy") return;
+        textManager.OutputLog(gameObject.name + "に" + damage + "のダメージ！");
+        enemyHp -= damage;
+        Invoke(nameof(SetSlider), 0.5f);
     }
 
     private void SetSlider()
     {
         slider.value = enemyHp;
     }
-    private void delayDestroy()
+    private void DelayDestroy()
     {
-        gameObject.SetActive(false);
-        
+        textManager.OutputLog(gameObject.name+"をたおした。");
+        Destroy(gameObject);
     }
 
 }
