@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int enemyHp =20;
+    //private Slider slider;
     private Slider slider;
     private void Start()
     {
-        slider = GameObject.Find("EnemySlider").GetComponent<Slider>();
+        //slider = GameObject.Find("EnemySlider").GetComponent<Slider>();
+        slider = GetComponentInChildren<Slider>();
         slider.maxValue = enemyHp;
         slider.value = enemyHp;
     }
@@ -19,10 +21,9 @@ public class EnemyHealth : MonoBehaviour
     {
         if (enemyHp <= 0)
         {
-            Destroy(gameObject);
+            Invoke(nameof(delayDestroy), 0.5f);
         }
     }
-
 
     public void Damage()
     {
@@ -35,4 +36,9 @@ public class EnemyHealth : MonoBehaviour
     {
         slider.value = enemyHp;
     }
+    private void delayDestroy()
+    {
+        gameObject.SetActive(false);
+    }
+
 }

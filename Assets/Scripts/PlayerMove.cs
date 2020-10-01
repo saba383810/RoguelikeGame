@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
 
     private float step = 5f;
     private Vector3 moveTarget;
-    private Vector3 enemyPos;
+    public Vector3 enemyPos;
     private EnemyHealth enemyHealth;
     private GameObject enemyObj;
     private Vector3 prevpos;
@@ -42,13 +42,21 @@ public class PlayerMove : MonoBehaviour
             SetTargetPosition();
         }
 
-        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Mouse0))&&canAttack==true)
+        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Mouse0)))
         {
-            canAttack = false;
-            enemyHealth = enemyObj.GetComponent<EnemyHealth>();
-            anim.SetBool(IsAttack, true);
-            enemyHealth.Damage();
-            Invoke(nameof(SetIsAttackFalse),0.5f);
+            if (canAttack == true)
+            {
+                canAttack = false;
+                enemyHealth = enemyObj.GetComponent<EnemyHealth>();
+                anim.SetBool(IsAttack, true);
+                enemyHealth.Damage();
+                Invoke(nameof(SetIsAttackFalse), 0.5f);
+            }
+            else
+            {
+                anim.SetBool(IsAttack, true);
+                Invoke(nameof(SetIsAttackFalse), 0.5f);
+            }
         }
         
         Move();
@@ -124,11 +132,8 @@ public class PlayerMove : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.transform.CompareTag("Enemy"))
-        {
             enemyObj = GameObject.Find("Dummy");
             enemyPos = enemyObj.transform.position;
-        }
     }
 
     private void SetIsAttackFalse()
