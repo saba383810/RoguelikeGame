@@ -23,7 +23,6 @@ public class PlayerMove : MonoBehaviour
     private Slider slider;
     private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
-    // Start is called before the first frame update
     void Start()
     {
         moveTarget = transform.position;
@@ -34,14 +33,13 @@ public class PlayerMove : MonoBehaviour
         slider.value = food;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (this.transform.position == moveTarget)
         {
             SetTargetPosition();
         }
-
+        //---------------攻撃----------------
         if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Mouse0)))
         {
             if (canAttack == true)
@@ -58,11 +56,11 @@ public class PlayerMove : MonoBehaviour
                 Invoke(nameof(SetIsAttackFalse), 0.5f);
             }
         }
-        
+
         Move();
         slider.value = food;
     }
-
+    //----------移動向きをセット------------------
     void SetTargetPosition()
     {
         prevpos = moveTarget;
@@ -90,7 +88,7 @@ public class PlayerMove : MonoBehaviour
             return;
         }
     }
-
+    //----移動----
     private void Move()
     {
         var transform1=transform;
@@ -142,4 +140,9 @@ public class PlayerMove : MonoBehaviour
         canAttack = true;
     }
 
+    public void resetTargetObj()
+    {
+        enemyObj = GameObject.Find("Dummy");
+        enemyPos = enemyObj.transform.position;
+    }
 }
